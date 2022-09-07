@@ -1,20 +1,19 @@
-let idade: string | number = 90 // dessa forma, faço a typagem informando que ela pode ser de mais de uma forma, fazendo ser aceitou um dos tipos especificados 
+// Boa parte das funções tem o retorno void
 
-idade = 90
+// Void é quando uma função vai cumprir o papel dela, mas ela não tem um retorno
 
-/*function mostrarIdade(idade: string | number) {
-  console.log(idade.toUpperCase()) // dessa forma gera erro pois no parametro diz que pode haver number, e não é possível usar a função toUpperCase em number, o TS não permite ser escrito assim, por isso é necessário a condicional
-} */
-
-// Forma correta com a condicional:
-
-function mostrarIdade(idade: string | number) {
-  if (typeof idade === 'string') {
-    console.log(idade.toUpperCase())
-  } else {
-    console.log(idade)
-  }
+function removerElemento(el: HTMLElement): void { // a typagem void informa q não haverá retorno, caso seja descrito um retorno irá dar erro. Caso eu não faça a typagem void e não tenha nenhum retorno o TS já irá definir que é uma função do tipo void (passando o mouse acima da função) o ideal é caso não haja retorno, msm q o TS já faça isso eu typar void para q caso seja escrito um retorno em uma função q não deveria ter retorno, o TS não aceite
+  el.remove()
 }
 
-mostrarIdade(90) // por este o erro do toUpperCase
-mostrarIdade('90')
+removerElemento(document.getElementById('teste'))
+
+// Forma em que o TS iria aceitar um retorno de função mesmo que seja typado o tipo void:
+
+type QualquerFuncao = () => void
+
+const algo: QualquerFuncao = () => {
+  return 12
+}
+
+// Dessa forma, o TS entende que ele não espera um retorno, porém não quer dizer que não irá aceitar
